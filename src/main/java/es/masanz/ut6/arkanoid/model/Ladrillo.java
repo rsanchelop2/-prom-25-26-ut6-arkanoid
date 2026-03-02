@@ -8,7 +8,7 @@ public class Ladrillo extends Sprite {
 
     public int vidas;
 
-    public Ladrillo(double x, double y) {
+    public Ladrillo(double x, double y) { // X Columna Y Fila
         super(x * TAM_CASILLA, y * TAM_CASILLA, 1, 2 * TAM_CASILLA, TAM_CASILLA, 0.0, 0.0);
         this.vidas = 1;
     }
