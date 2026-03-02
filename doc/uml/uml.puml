@@ -1,0 +1,174 @@
+@startuml
+class model.PotAnchuraNeg {
++ void aplicarEfecto(List<Sprite>)
+}
+
+class model.PotVelocidad {
++ void aplicarEfecto(List<Sprite>)
+}
+
+class database.ConnectionManager {
+- {static} Connection conexion
++ {static} boolean conectar(String,String,String)
++ {static} Object[][] ejecutarSelectSQL(String,Object[])
++ {static} int ejecutarUpdateSQL(String,Object[])
++ {static} long ejecutarInsertSQL(String,Object[])
+- {static} Object[][] convertirResultSets(ResultSet)
+- {static} void establecerParametros(PreparedStatement,Object[])
++ {static} boolean desconectar()
+}
+
+
+class model.Ladrillo {
++ int vidas
++ boolean mover(Nivel)
++ void pintar(GraphicsContext)
++ boolean morir()
++ Potenciador obtenerPotenciador()
++ int getVidas()
++ void setVidas(int)
+}
+
+
+class model.Nivel {
+~ int id
+~ int filas
+~ List<Ladrillo> ladrillos
+~ int siguienteNivel
++ int getId()
++ void setId(int)
++ int getFilas()
++ void setFilas(int)
++ int getColumnas()
++ void setColumnas(int)
++ List<Ladrillo> getLadrillos()
++ void setLadrillos(List<Ladrillo>)
++ int getSiguienteNivel()
++ void setSiguienteNivel(int)
++ void generarLadrillosDesdeTexto(String)
++ String generarTextoDesdeLadrillos()
+}
+
+
+class model.Bola {
++ boolean mover(Nivel)
++ void pintar(GraphicsContext)
++ boolean hayColision(Sprite)
+}
+
+class model.Paleta {
++ boolean mover(Nivel)
++ void pintar(GraphicsContext)
+}
+
+class app.EditorNiveles {
+- int[][] matrizLogica
+- Rectangle[][] matrizVisual
+- GridPane contenedorCuadricula
+- Stage primaryStage
++ void start(Stage)
+- void crearCuadricula(int,int)
+- void manejarClick(int,int,int)
++ {static} void main(String[])
+}
+
+
+class service.NivelService {
++ {static} Nivel obtenerNivel(int)
+}
+
+class Main {
++ {static} void main(String[])
+}
+
+abstract class model.Sprite {
+# int color
+# double x
+# double anchura
+# double velocidadX
++ boolean hayColision(Sprite)
++ {abstract}boolean mover(Nivel)
++ {abstract}void pintar(GraphicsContext)
++ double getX()
++ void setX(double)
++ double getY()
++ void setY(double)
++ double getAnchura()
++ void setAnchura(double)
++ double getAltura()
++ void setAltura(double)
++ double getVelocidadX()
++ void setVelocidadX(double)
++ double getVelocidadY()
++ void setVelocidadY(double)
++ boolean equals(Object)
++ int hashCode()
+}
+
+
+class app.Arkanoid {
+- Map<String,List<Sprite>> sprites
+- Sprite paleta
+- Canvas lienzo
+- Timeline timeline
+- boolean pausado
+- Nivel nivel
+- Label lblPuntos
+- Label lblVidas
+- int puntos
+- int vidas
+- Stage stage
++ void start(Stage)
+- void generarMapa()
+- void cicloDelJuego()
+- void pintar()
+- void pintarPausa(String)
+- void clicDeRaton(MouseEvent)
+- void teclaPulsada(KeyEvent)
+- void teclaSoltada(KeyEvent)
+- void moverConRaton(MouseEvent)
+}
+
+abstract class model.Potenciador {
++ boolean mover(Nivel)
++ void pintar(GraphicsContext)
++ {abstract}void aplicarEfecto(List<Sprite>)
+}
+
+class dao.NivelDao {
++ {static} Nivel obtenerNivel(int)
+}
+
+class conf.Const {
++ {static} String ESQUEMA
++ {static} String USER
++ {static} String PASS
++ {static} double TAM_CASILLA
++ {static} Color[] COLORES
++ {static} boolean PINTAR_CUADRICULAS
+}
+
+class model.PotAnchura {
++ void aplicarEfecto(List<Sprite>)
+}
+
+app -[hidden]left- conf
+
+model.Potenciador <|-- model.PotAnchuraNeg
+model.Potenciador <|-- model.PotVelocidad
+model.Sprite <|-- model.Ladrillo
+model.Sprite <|-- model.Bola
+model.Sprite <|-- model.Paleta
+model.Sprite <|-- model.Potenciador
+model.Potenciador <|-- model.PotAnchura
+
+app.Arkanoid ..> model.Sprite
+app.Arkanoid ..> model.Nivel
+app.Arkanoid ..> service.NivelService
+service.NivelService ..> dao.NivelDao
+dao.NivelDao ..> database.ConnectionManager
+
+Main ..> app.Arkanoid
+Main ..> app.EditorNiveles
+
+@enduml

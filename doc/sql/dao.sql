@@ -1,0 +1,1 @@
+SELECT id, filas, columnas, ladrillos, siguiente_nivel FROM nivel WHERE id = ?
