@@ -66,30 +66,59 @@ public class Nivel {
         int longitud = ladrillosStr.length();
         List<String> StrLadrillo = new ArrayList<>();
 
-        separarString(ladrillosStr);
-    }
-    private List<String> separarString(String texto){
-        List<String> textoSeparado = new ArrayList<>();
-        int numeroCaracteresPorFila = obtenerCaracteresPorFila(texto);
-        int longitud = texto.length();
+        List<Ladrillo> listaLadrillos = new ArrayList<Ladrillo>();
 
-        for (int i = 0; i < longitud; i += 10) {
-            textoSeparado.add(texto.substring(i, Math.min(longitud, i + 10)));
+        for (int i = 0; i < ladrillosStr.length(); i++) {
+            if (ladrillosStr.charAt(i) - '0' > 0) {
+                int fila = i / filas;
+                int columna = i - fila * columnas;
+                Ladrillo ladrillo = new Ladrillo(columna,fila);
+                int vidas = ladrillosStr.charAt(i) - '0';
+                ladrillo.setVidas(vidas);
+                listaLadrillos.add(ladrillo);
+            }
         }
+        ladrillos = listaLadrillos;
 
-        return textoSeparado;
+        //separarString(ladrillosStr);
     }
-
-    private int obtenerCaracteresPorFila(String texto) {
-        int longitud = texto.length();
-        if (longitud == 100) return 10;
-        if (longitud == 450 || longitud == 465) return 15;
-        return 0;
-    }
+//    private List<String> separarString(String texto){
+//        List<Integer> textoSeparado = new ArrayList<>();
+//        List<Integer> textoPorCaracteres = new ArrayList<>();
+//        int numeroCaracteresPorFila = obtenerCaracteresPorFila(texto);
+//        int longitud = texto.length();
+//        int contador = 0;
+//
+//
+//        for (int i = 0; i < numeroCaracteresPorFila; i++) {
+//            textoPorCaracteres.add()
+//
+//            if (contador <= 10){
+//
+//            }
+//        }
+//        for (int i = 0; i < longitud; i += 10) {
+//            if (contador == numeroCaracteresPorFila){
+//                contador = 0;
+//            }
+//            textoSeparado.add(texto.substring(i, Math.min(longitud, i + 10)));
+//        }
+//
+//        return textoSeparado;
+//    }
+//
+//    private int obtenerCaracteresPorFila(String texto) {
+//        int longitud = texto.length();
+//        if (longitud == 100) return 10;
+//        if (longitud == 450 || longitud == 465) return 15;
+//        return 0;
+//    }
 
     public String generarTextoDesdeLadrillos(){
         // TODO 04: En funcion de los ladrillos del nivel, generar el String que los represente
         StringBuilder sb = new StringBuilder();
+
+
         return sb.toString();
     }
 }
