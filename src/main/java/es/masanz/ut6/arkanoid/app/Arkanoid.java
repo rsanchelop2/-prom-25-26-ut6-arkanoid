@@ -168,7 +168,16 @@ public class Arkanoid extends Application {
 
     private List<Sprite> moverBolas() {
         // TODO 14: Deberas mover todas las bolas y devolver aquellas que no se puedan mover
-        return null;
+        List<Sprite> bolas = sprites.get("bolas");
+        List<Sprite> bolasNoMovidas = new ArrayList<>();
+        for (Sprite bola : bolas) {
+            Bola boll = new Bola(bola.getX(), bola.getY());
+            boll.mover(nivel);
+            if (bola.getY() == boll.getY() && bola.getX() == boll.getX()){
+                bolasNoMovidas.add(bola);
+            }
+        }
+        return bolasNoMovidas;
     }
 
     private List<Sprite> moverPotenciadores() {
