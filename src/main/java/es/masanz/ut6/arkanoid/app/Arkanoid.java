@@ -19,10 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static es.masanz.ut6.arkanoid.conf.Const.*;
 
@@ -181,11 +178,34 @@ public class Arkanoid extends Application {
     }
 
     private List<Sprite> moverPotenciadores() {
-        // TODO 15: Deberas mover todos los potenciadores y devolver aquellos que, o bien no se puedan mover
+        // TODO 15: Deberas mover todos los potenciadores y devolver aquellos que, o bien no se puedan mover - DONE
         //  o bien que despues de moverse esten en colision con la paleta.
         //  Adicionalmente, si entra en contacto con la paleta, se debera aplicar
         //  su efecto a todos los sprites que pueda afectar su potenciacion (a la paleta, bolas, etc)
-        return null;
+        List<Sprite> potenciadores = sprites.get("potenciadores");
+        List<Sprite> eliminar = new ArrayList<>();
+
+        for (Sprite potenciador : potenciadores) {
+            boolean mover = potenciador.mover(nivel);
+            if (!mover){
+                eliminar.add(potenciador);
+            } else {
+                if (potenciador.hayColision(paleta)){
+                    List<Sprite> sprites2 = new ArrayList<>();
+                    sprites2.addAll(sprites.get("ladrillos"));
+                    sprites2.addAll(sprites.get("bolas"));
+                    sprites2.addAll(sprites.get("potenciadores"));
+                    sprites2.add(paleta);
+
+                    ((Potenciador) potenciador).aplicarEfecto(sprites2);
+
+                    eliminar.add(potenciador);
+                }
+            }
+        }
+
+
+        return eliminar;
     }
 
     private void eliminarPotenciadores(List<Sprite> eliminarPotenciadores) {
@@ -207,7 +227,19 @@ public class Arkanoid extends Application {
     }
 
     private void eliminarBolas(List<Sprite> eliminarBolas) {
-        // TODO 19: Deberas eliminar las bolas indicadas del mapa de sprites.
+        // TODO 19: Deberas eliminar las bolas indicadas del mapa de sprites. - DONE
+        List<Sprite> bolasMapa = new ArrayList<>();
+        bolasMapa.addAll(sprites.get("bolas"));
+        Iterator<Sprite> it = bolasMapa.iterator();
+        while (it.hasNext()) {
+            Sprite bolaMapa = it.next();
+            for (Sprite eliminarBola : eliminarBolas) {
+                if (bolaMapa.equals(eliminarBola)) {
+                    it.remove();
+                    break;
+                }
+            }
+        }
     }
 
     private void colisionBolas() {
