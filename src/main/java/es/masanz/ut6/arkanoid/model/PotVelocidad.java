@@ -19,7 +19,7 @@ public class PotVelocidad extends Potenciador {
 
     @Override
     public void aplicarEfecto(List<Sprite> sprites) {
-        // TODO 08: Si alguno de los sprites es una bola, modificar su velocidad al gusto
+        // TODO 08: Si alguno de los sprites es una bola, modificar su velocidad al gusto - DONE
         for (Sprite sprite : sprites) {
             if (sprite instanceof Bola){
                 sprite.setVelocidadY(sprite.velocidadY + 0.2);

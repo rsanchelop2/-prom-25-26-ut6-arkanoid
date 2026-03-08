@@ -18,6 +18,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +50,7 @@ public class Arkanoid extends Application {
         Scene scene = new Scene(root);
 
         // TODO 11: inicializa el nivel
-        nivel = null;
+        nivel = new Nivel();
 
         lienzo = new Canvas();
         generarMapa();
@@ -91,6 +93,17 @@ public class Arkanoid extends Application {
         //  La lista de "bolas" debera contener unicamente la bola que esta aqui definida
         //  La lista de "ladrillos" la deberas obtener del nivel
         Bola bola = new Bola(nivel.getColumnas() / 2 * TAM_CASILLA, (nivel.getFilas()-4) * TAM_CASILLA);
+        sprites = new HashMap<>();
+
+        List<Sprite> bolas = new ArrayList<Sprite>();
+        bolas.add(bola);
+        sprites.put("bola", bolas);
+
+        List<Sprite> potenciadores = new ArrayList<Sprite>();
+        sprites.put("potenciadores", potenciadores);
+
+        List<Sprite> ladrillos = new ArrayList<>(nivel.getLadrillos());
+        sprites.put("ladrillos", ladrillos);
 
         // NO TOCAR ESTAS LINEAS
         paleta = new Paleta(nivel.getColumnas()/2 - TAM_CASILLA*6/2, (nivel.getFilas()-3)*TAM_CASILLA, 4, TAM_CASILLA*6, TAM_CASILLA, 0, 0);

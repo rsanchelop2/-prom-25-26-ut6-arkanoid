@@ -11,7 +11,7 @@ public class Const {
 
     public static final double TAM_CASILLA = 30;
 
-    // TODO 09: Ampliar o reducir el catalogo de colores, se emplea en varios sitios
+    // TODO 09: Ampliar o reducir el catalogo de colores, se emplea en varios sitios - DONE
     public static final Color[] COLORES = {
             Color.BLACK,
             Color.WHITE,

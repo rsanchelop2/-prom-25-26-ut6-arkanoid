@@ -36,7 +36,7 @@ public class Ladrillo extends Sprite {
     }
 
     public Potenciador obtenerPotenciador() {
-        // TODO 05: Devolver un potenciador u otro con la probabilidad que se desee
+        // TODO 05: Devolver un potenciador u otro con la probabilidad que se desee - DONE
         int n = (int) (Math.random() * 2);
 
         switch (n){
