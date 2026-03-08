@@ -1,5 +1,6 @@
 package es.masanz.ut6.arkanoid.app;
 
+import com.sun.source.doctree.SpecTree;
 import es.masanz.ut6.arkanoid.model.*;
 import es.masanz.ut6.arkanoid.service.NivelService;
 import javafx.animation.KeyFrame;
@@ -49,7 +50,7 @@ public class Arkanoid extends Application {
         HBox root = new HBox();
         Scene scene = new Scene(root);
 
-        // TODO 11: inicializa el nivel
+        // TODO 11: inicializa el nivel - DONE
         nivel = new Nivel();
 
         lienzo = new Canvas();
@@ -86,7 +87,7 @@ public class Arkanoid extends Application {
     }
 
     private void generarMapa() {
-        // TODO 12: Inicializa el mapa de sprites. Debe estar compuesto por 3 listados:
+        // TODO 12: Inicializa el mapa de sprites. Debe estar compuesto por 3 listados: - DONE
         //  1 para "ladrillos", otro para "bolas" y otro para "potenciadores".
         //  Emplea los terminos entrecomillados como claves
         //  La lista de "potenciadores" debera estar vacia
@@ -157,6 +158,12 @@ public class Arkanoid extends Application {
 
     private void moverLadrillos() {
         // TODO 13: Deberas mover todos los ladrillos
+        List<Sprite> ladrillos = sprites.get("ladrillos");
+        if (ladrillos != null){
+            for (Sprite ladrillo : ladrillos) {
+                ladrillo.mover(nivel);
+            }
+        }
     }
 
     private List<Sprite> moverBolas() {
