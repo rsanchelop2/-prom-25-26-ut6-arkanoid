@@ -209,7 +209,14 @@ public class Arkanoid extends Application {
     }
 
     private void eliminarPotenciadores(List<Sprite> eliminarPotenciadores) {
-        // TODO 16: Deberas eliminar los potenciadores indicados del mapa de sprites
+        // TODO 16: Deberas eliminar los potenciadores indicados del mapa de sprites - DONE pero creo que no es optimo
+        for (Sprite aEliminar : eliminarPotenciadores) {
+            for (List<Sprite> sprite : sprites.values()) {
+                if (aEliminar == sprite){
+                    sprite.remove(sprite);
+                }
+            }
+        }
     }
 
     private List<Sprite> colisionesLadrillos() {
