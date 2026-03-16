@@ -22,7 +22,8 @@ public class PotVelocidad extends Potenciador {
         // TODO 08: Si alguno de los sprites es una bola, modificar su velocidad al gusto - DONE
         for (Sprite sprite : sprites) {
             if (sprite instanceof Bola){
-                sprite.setVelocidadY(sprite.velocidadY + 0.2);
+                sprite.setVelocidadY(sprite.velocidadY * 1.5);
+                sprite.setVelocidadY(sprite.velocidadY * 1.5);
             }
         }
     }
