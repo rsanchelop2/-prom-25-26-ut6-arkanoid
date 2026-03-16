@@ -63,6 +63,7 @@ public class Nivel {
 
     public void generarLadrillosDesdeTexto(String ladrillosStr) {
         // TODO 03: En funcion del String recibido, cargar los ladrillos del nivel
+        ladrillos = new ArrayList<>();
         int longitud = ladrillosStr.length();
         List<String> StrLadrillo = new ArrayList<>();
 
@@ -117,7 +118,18 @@ public class Nivel {
     public String generarTextoDesdeLadrillos(){
         // TODO 04: En funcion de los ladrillos del nivel, generar el String que los represente
         StringBuilder sb = new StringBuilder();
-
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                Ladrillo l = new Ladrillo(0, 0);
+                for (Ladrillo ladrillo : ladrillos) {
+                    if ((ladrillo.getX()/TAM_CASILLA) == columnas && (ladrillo.getY()/TAM_CASILLA) == filas){
+                        l = ladrillo;
+                        break;
+                    }
+                }
+                sb.append(l.getVidas());
+            }
+        }
 
         return sb.toString();
     }

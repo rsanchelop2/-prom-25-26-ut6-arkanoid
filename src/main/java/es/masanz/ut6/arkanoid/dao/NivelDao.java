@@ -16,11 +16,11 @@ public class NivelDao {
         Object[][] resul = ConnectionManager.ejecutarSelectSQL(sql, params);
         if (resul != null && resul.length > 0){
             Nivel nivel = new Nivel();
-            nivel.setId((Integer) resul[0][1]);
-            nivel.setFilas((Integer) resul[0][2]);
-            nivel.setColumnas((Integer) resul[0][3]);
-            nivel.setLadrillos((List<Ladrillo>) resul[0][4]);
-            nivel.setSiguienteNivel((Integer) resul[0][5]);
+            nivel.setId((Integer) resul[0][0]);
+            nivel.setFilas((Integer) resul[0][1]);
+            nivel.setColumnas((Integer) resul[0][2]);
+            nivel.generarLadrillosDesdeTexto((String) resul[0][3]);
+            nivel.setSiguienteNivel((Integer) resul[0][4]);
 
             return nivel;
         }
