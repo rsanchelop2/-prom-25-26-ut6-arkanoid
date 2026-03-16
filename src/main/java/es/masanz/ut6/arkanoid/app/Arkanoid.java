@@ -1,6 +1,6 @@
 package es.masanz.ut6.arkanoid.app;
 
-import com.sun.source.doctree.SpecTree;
+// import com.sun.source.doctree.SpecTree;
 import es.masanz.ut6.arkanoid.model.*;
 import es.masanz.ut6.arkanoid.service.NivelService;
 import javafx.animation.KeyFrame;
@@ -224,13 +224,34 @@ public class Arkanoid extends Application {
         //  En caso de que haya colision, invoca al metodo hayColision de la bola con la que colisiona el ladrillo
         //  y al metodo morir del propio ladrillo. Deberas devolver todos los ladrillos que se mueran.
         //  OPCIONAL: Aqui se pueden ampliar los puntos del juego si se desea
-        return null;
+        List<Sprite> eliminarLadrillos = new ArrayList<>();
+        for(Sprite ladrillo : sprites.get("ladrillos")){
+            for (Sprite bola : sprites.get("bolas")) {
+                if(ladrillo.hayColision(bola)){
+                    puntos = puntos + 3*((Ladrillo) ladrillo).getVidas();
+                    if(((Ladrillo) ladrillo).morir()){
+                        eliminarLadrillos.add(ladrillo);
+                    }
+                    bola.hayColision(ladrillo);
+                    break;
+                }
+            }
+        }
+        return eliminarLadrillos;
     }
 
     private void eliminarLadrillos(List<Sprite> eliminarLadrillos) {
         // TODO 18: Deberas eliminar los ladrillos indicados del mapa de sprites.
         //  Ademas, para cada ladrillo eliminado, se debera validar si genera un potenciador.
         //  En caso de generar uno, se debera incluir al listado de potenciadores del mapa de sprites
+        for (Sprite eliminarLadrillo : eliminarLadrillos) {
+            sprites.get("ladrillos").remove(eliminarLadrillo);
+
+            Sprite potenciador = ((Ladrillo) eliminarLadrillo).obtenerPotenciador();
+            if(potenciador!=null){
+                sprites.get("potenciadores").add(potenciador);
+            }
+        }
     }
 
     private void eliminarBolas(List<Sprite> eliminarBolas) {
@@ -251,6 +272,9 @@ public class Arkanoid extends Application {
 
     private void colisionBolas() {
         // TODO 20: Deberas analizar si hay colision entre las bolas y la paleta del juego.
+        for (Sprite bola : sprites.get("bolas")) {
+            bola.hayColision(paleta);
+        }
     }
 
     private void pintar() {
@@ -280,6 +304,17 @@ public class Arkanoid extends Application {
 
     private void pintarSprites(GraphicsContext gc) {
         // TODO 21: Deberas pintar todos los sprites del juego
+        for (Sprite ladrillo : sprites.get("ladrillos")) {
+            ladrillo.pintar(gc);
+        }
+
+        for (Sprite bola : sprites.get("bolas")) {
+            bola.pintar(gc);
+        }
+
+        for (Sprite potenciador : sprites.get("potenciadores")) {
+            potenciador.pintar(gc);
+        }
     }
 
     private void pintarPausa(String msg) {
